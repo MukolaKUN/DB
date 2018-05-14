@@ -1,0 +1,11 @@
+select *from accessory;
+select *from bike;
+select *from bike_has_rent;
+select *from bike_producer;
+select *from client;
+select *from damage;
+select *from insurance;
+select *from rent;
+select *from rent_has_accessory;
+select *from role;
+select *from worker;
