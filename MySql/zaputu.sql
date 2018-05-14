@@ -58,8 +58,8 @@ select DISTINCT
 	surname,
     b.mark,
     acs.mark,
-    (acs.day_price+b.day_price) as 'Rent by 1 day',
-    (r.date_finish-r.date_start)*(acs.day_price+b.day_price) as 'Full price'
+   concat(acs.day_price+b.day_price) as 'Rent by 1 day',
+    concat(r.date_finish-r.date_start)*(acs.day_price+b.day_price) as 'Full price'
     
 from client c
 	right join rent r on c.id_client = r.client_id_client
@@ -97,11 +97,11 @@ order by c.name desc;
 SELECT
 	b.mark,
     b.day_price,
-CASE 
+case 
  WHEN b.day_price between 100 and 150 THEN 'Low price' 
  WHEN b.day_price between 200 and 300 THEN 'Midle price'
  ELSE 'Hight price'
-END
+end
 AS 'Type price of bike'
 FROM 
 	bike b
@@ -138,12 +138,45 @@ union
     p.coutry
 from bike b
 	left join bike_producer p on b.bike_producer_id_bike_producer=p.id_bike_producer
-where b.mark like 'C%')
+where b.mark like 'C%');
     
     
 -- 9--------------------------------------------------------------
     
+select 
+	Name,
+    Surname,
+	name_role,
+    date_birthday
+from 
+	worker inner join role on id_worker=worker_id_worker
+where date_birthday between '1985-12-01' and '2000-12-01'
+order by name asc;
+    
+-- 10--------------------------------------------------------------
 
-    
-    
+select 
+	mark,
+    type,
+    day_price,
+    name,
+    coutry
+from 
+	bike cross join bike_producer on bike_producer_id_bike_producer=id_bike_producer
+where id_bike_producer = (select 
+								id_bike 
+							from 
+								bike
+							where day_price<=200 limit 1) 
+								
+order by mark desc;
+
+
+
+
+
+
+
+
+
     
