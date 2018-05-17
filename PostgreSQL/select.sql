@@ -53,9 +53,39 @@ order by d.sum;
 
 -- 4-----------------------------------------------------------------------------------
 
+select 
+	name,
+	surname,
+    b.mark,
+    acs.mark,
+   concat(acs.day_price+b.day_price) as "Rent by 1 day",							 
+case 
+when date_finish-date_start>0 then (r.date_finish-r.date_start)*(acs.day_price+b.day_price)
+when date_finish-date_start=0 then acs.day_price+b.day_price
+end
+as "Full price"
+from client c
+	right join rent r on c.id_client = r.client_id_client
+		right join rent_has_accessory rha on r.id_rent=rha.rent_id_rent
+			right join accessory acs on acs.id_accessory=rha.accessory_id_accessory
+				right join bike_has_rent bhr on bhr.rent_id_rent = r.id_rent
+					right join bike b on b.id_bike = bhr.bike_id_bike
+where c.name='Ігор'
+order by surname asc;
 
+-- 5-----------------------------------------------------------------------------------
 
-
+select
+-- 6-----------------------------------------------------------------------------------
+select 
+-- 7-----------------------------------------------------------------------------------
+select
+-- 8-----------------------------------------------------------------------------------
+select
+-- 9-----------------------------------------------------------------------------------
+select
+-- 10-----------------------------------------------------------------------------------
+select
 
 
 

@@ -76,5 +76,34 @@ create view top_5_bikes as
 
 -- 5--------------------------------------------------------------
 
+drop view price_acs_for_all_day;
 
-
+create view price_acs_for_all_day as 
+	select 
+        name,
+        surname,
+        mark,
+        type,
+        deposit_amount,
+        day_price,
+        concat(if((r.date_finish-r.date_start)>0,(r.date_finish-date_start)*(acs.day_price),acs.day_price)) as 'price for all day'
+	from 
+		client c
+			right join rent r on c.id_client = r.client_id_client
+				right join rent_has_accessory rha on r.id_rent=rha.rent_id_rent
+					right join accessory acs on acs.id_accessory=rha.accessory_id_accessory
+   where day_price>60
+   order by name;
+    
+select *from price_acs_for_all_day;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
