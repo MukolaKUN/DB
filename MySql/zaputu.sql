@@ -29,7 +29,7 @@ right join client on client.id_client=rent.client_id_client
 	 join rent_has_accessory on rent.id_rent=rent_has_accessory.rent_id_rent
 		join accessory on accessory.id_accessory=rent_has_accessory.accessory_id_accessory
 	
-where day_price > 50
+where day_price > 40
 order by name asc;
 
 -- 3--------------------------------------------------------------
@@ -48,6 +48,7 @@ from
 where 
 	w.id_worker=r.worker_id_worker 
 	and c.id_client=r.client_id_client
+    and c.name like 'Ігор'  
 order by c.name desc;
 
 
@@ -97,7 +98,7 @@ order by c.name desc;
 SELECT
 	b.mark,
     b.day_price,
-case 
+case
  WHEN b.day_price between 100 and 150 THEN 'Low price' 
  WHEN b.day_price between 200 and 300 THEN 'Midle price'
  ELSE 'Hight price'
