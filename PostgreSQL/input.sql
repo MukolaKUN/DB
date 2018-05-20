@@ -143,16 +143,16 @@ insert into bike(mark,type,day_price,deposit_amount,replacement_cost,bike_count,
 values('Stolen SINNER XLT-FC LHD','BMX','300','8500','1500','4','4');
 
 Savepoint damage2;
-insert into damage(work_status,damage_date,sum,rent_id_rent,bike_id_bike)
-values('Зламані передні тормоза','2018-03-15','500','1','1');
-insert into damage(work_status,damage_date,sum,rent_id_rent,bike_id_bike)
-values('Порваний ланцюг','2018-03-16','400','4','4');
-insert into damage(work_status,damage_date,sum,rent_id_rent,bike_id_bike)
-values('Зламане сидіння',NULL,'1000','5','5');
-insert into damage(work_status,damage_date,sum,rent_id_rent,bike_id_bike)
-values('Зігнута передня вилка','2018-05-05','2000','6','6');
-insert into damage(work_status,damage_date,sum,rent_id_rent,bike_id_bike)
-values('Зламані педалі','2018-05-12','500','8','8');
+insert into damage(work_status,damage_date,sum,rent_id_rent,bike_id_bike,client_id_client)
+values('Зламані передні тормоза','2018-03-15','500','1','1','2');
+insert into damage(work_status,damage_date,sum,rent_id_rent,bike_id_bike,client_id_client)
+values('Порваний ланцюг','2018-03-16','400','4','4','4');
+insert into damage(work_status,damage_date,sum,rent_id_rent,bike_id_bike,client_id_client)
+values('Зламане сидіння',NULL,'1000','5','5','3');
+insert into damage(work_status,damage_date,sum,rent_id_rent,bike_id_bike,client_id_client)
+values('Зігнута передня вилка','2018-05-05','2000','6','6','6');
+insert into damage(work_status,damage_date,sum,rent_id_rent,bike_id_bike,client_id_client)
+values('Зламані педалі','2018-05-12','500','8','8','8');
 
 Savepoint accessory2;
 insert into accessory(mark,type,day_price,deposit_amount)
@@ -296,6 +296,6 @@ rollback to savepoint bike_has_rent2;*/
 
 commit;
 
-select * from bike;
+
 
 

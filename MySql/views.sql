@@ -2,6 +2,7 @@
 
 
 drop view info_about_client;
+
 Create view info_about_client as
 select 
 	client.id_client as 'id клієнта', 

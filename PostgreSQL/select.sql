@@ -1,3 +1,4 @@
+-- 1-----------------------------------------------------------------------------------
 select DISTINCT 
 	name,
 	surname,
@@ -12,7 +13,7 @@ from client c
 			right join accessory acs on acs.id_accessory=rha.accessory_id_accessory
 				right join bike_has_rent bhr on bhr.rent_id_rent = r.id_rent
 					right join bike b on b.id_bike = bhr.bike_id_bike
-where r.date_finish-r.date_start>0
+where r.date_finish-r.date_start>1
 and b.day_price between 200 and 400
 
 order by surname asc;
@@ -74,18 +75,84 @@ where c.name='Ігор'
 order by surname asc;
 
 -- 5-----------------------------------------------------------------------------------
-
 select
+	b.mark,
+	b.type,
+	d.work_status
+from bike b
+		inner join damage d on b.id_bike=d.bike_id_bike
+where d.work_status='Зламане сидіння';
+
 -- 6-----------------------------------------------------------------------------------
-select 
+/*select 
+	name,
+	surname,
+	sex,
+	mark,
+	type
+from client
+where id_client = (select client_id_client
+					 from rent
+					 where id_rent =(select rent_id_rent
+										  from bike_has_rent
+										  where bike_id_bike = (select id_bike
+																from bike 
+																where mark = 'Cannondale FAT CAAD 2')))*/
+
+
 -- 7-----------------------------------------------------------------------------------
 select
+	name,
+	phone,
+	coutry
+from bike_producer
+where id_bike_producer=all(select
+						  		bike_producer_id_bike_producer
+						  from bike
+						  where type='Гірський')
+	
 -- 8-----------------------------------------------------------------------------------
-select
+select distinct
+	cl.name,
+	cl.surname,
+	b.mark,
+	b.type,
+	dam.work_status,
+	dam.sum,
+	case 
+		when date_finish-date_start>0 and dam.work_status is not null then (r.date_finish-r.date_start)*(b.day_price+dam.sum)
+		when date_finish-date_start=0 and dam.work_status is null then b.day_price
+	end
+	as "If have damage"
+from client cl
+	right join rent r on cl.id_client = r.client_id_client
+		right join bike_has_rent bhr on bhr.rent_id_rent = r.id_rent
+			right join bike b on b.id_bike = bhr.bike_id_bike
+				right join damage dam on b.id_bike = dam.bike_id_bike
+where cl.id_client=dam.client_id_client; 					
+						
 -- 9-----------------------------------------------------------------------------------
 select
+	cl.name,
+	cl.surname,
+	b.mark,
+	b.type,
+	dam.work_status,
+	dam.sum
+from client cl
+	right join rent r on cl.id_client = r.client_id_client
+		right join bike_has_rent bhr on bhr.rent_id_rent = r.id_rent
+			right join bike b on b.id_bike = bhr.bike_id_bike
+				right join damage dam on b.id_bike = dam.bike_id_bike
+where cl.id_client = dam.client_id_client
+and dam.sum>500;
+
 -- 10-----------------------------------------------------------------------------------
-select
+  select 
+  	concat('Марка - ',mark,', Тип - ',type,', Денна ціна - ',day_price,', Ціна депозиту - ',deposit_amount,', Ціна ремонту від - ',replacement_cost) as "Каталог Велосипедів"
+  from bike;
+ 
+	
 
 
 

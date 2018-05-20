@@ -168,16 +168,5 @@ where id_bike_producer = (select
 								id_bike 
 							from 
 								bike
-							where day_price<=200 limit 1) 
-								
+							where day_price<=200 limit 1)
 order by mark desc;
-
-
-
-
-
-
-
-
-
-    

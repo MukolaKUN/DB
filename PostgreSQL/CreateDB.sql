@@ -109,15 +109,20 @@ CREATE TABLE damage (
   sum DECIMAL(10) NULL,
   rent_id_rent INT NOT NULL,
   bike_id_bike INT NOT NULL,
+  client_id_client INT NOT NULL,
   PRIMARY KEY (id_damage),
-    FOREIGN KEY (rent_id_rent)
+		FOREIGN KEY (rent_id_rent)
     REFERENCES rent (id_rent)
     ON DELETE cascade
     ON UPDATE cascade,
-    FOREIGN KEY (bike_id_bike)
+		FOREIGN KEY (bike_id_bike)
     REFERENCES bike (id_bike)
     ON DELETE cascade
-    ON UPDATE cascade);
+    ON UPDATE cascade,
+      FOREIGN KEY (client_id_client)
+    REFERENCES client (id_client)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
 
 
 Savepoint accessory1;
