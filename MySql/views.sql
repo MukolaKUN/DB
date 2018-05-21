@@ -87,7 +87,7 @@ create view price_acs_for_all_day as
         type,
         deposit_amount,
         day_price,
-        concat(if((r.date_finish-r.date_start)>0,(r.date_finish-date_start)*(acs.day_price),acs.day_price)) as 'price for all day'
+        concat(if((r.date_finish-r.date_start)>0,(r.date_finish-date_start)*(acs.day_price),acs.day_price)) as 'price for all days'
 	from 
 		client c
 			right join rent r on c.id_client = r.client_id_client
