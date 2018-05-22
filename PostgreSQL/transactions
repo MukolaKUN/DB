@@ -1,0 +1,34 @@
+start transaction;
+savepoint default1;
+
+savepoint check1;
+update bike set day_price*0.2
+where bike.deposit_amount between 2000 and 7000;
+select *from bike;
+
+savepoint check2;
+delete from bike 
+	where bike.mark='Cannondale Scalpel SI 4 Carbon 2017'
+
+
+rollback to savepoint default1;
+rollback to savepoint check1;
+rollback to savepoint check2;
+commit;
+
+
+start transaction;
+
+savepoint default2;
+insert into client(name,surname,phone,date_of_birth,sex)
+values('Ростислав','Собчишин','0980998543','2000-04-26','чоловік')
+
+savepoint check3;
+
+update accssesory set day_price*0.2
+where accssesory.deposit_amount between 100 and 500;
+
+
+commit;
+
+

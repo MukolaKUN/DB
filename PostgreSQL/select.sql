@@ -49,7 +49,7 @@ from rent r
 	right join bike_has_rent on r.id_rent = rent_id_rent
 		right join bike b on bike_id_bike = b.id_bike
 			right join damage d on b.id_bike = d.bike_id_bike
-where d.sum between 3000 and 10000
+where d.sum between 1000 and 10000
 order by d.sum;
 
 -- 4-----------------------------------------------------------------------------------
@@ -57,8 +57,6 @@ order by d.sum;
 select 
 	name,
 	surname,
-    b.mark,
-    acs.mark,
    concat(acs.day_price+b.day_price) as "Rent by 1 day",							 
 case 
 when date_finish-date_start>0 then (r.date_finish-r.date_start)*(acs.day_price+b.day_price)
@@ -150,7 +148,9 @@ and dam.sum>500;
 -- 10-----------------------------------------------------------------------------------
   select 
   	concat('Марка - ',mark,', Тип - ',type,', Денна ціна - ',day_price,', Ціна депозиту - ',deposit_amount,', Ціна ремонту від - ',replacement_cost) as "Каталог Велосипедів"
-  from bike;
+  from bike
+  where day_price between 200 and 350
+  order by day_price ;
  
 	
 

@@ -7,9 +7,6 @@ create view full_price as
 	b.mark as "Марка велосипеда",
     acs.mark as "Марка Аксесуара",
 	acs.type as "Тип аксесуара",
--- 	r.date_start,
--- 	r.date_finish,
--- 	r.date_payment,
 	case
 		when (r.date_finish - r.date_start) > 0 and (r.date_payment - r.date_finish) > 0 
 			then (r.date_finish - r.date_start) * (acs.day_price + b.day_price)+(r.date_payment-r.date_finish) *(acs.day_price + b.day_price)*0.2
@@ -24,14 +21,12 @@ create view full_price as
 		when r.date_payment is null and (r.date_finish - r.date_start) = 0
 			then acs.day_price + b.day_price
 	end as "Повна вартість оренди"
-	
 	from client c
 	right join rent r on c.id_client = r.client_id_client
 		right join rent_has_accessory rha on r.id_rent=rha.rent_id_rent
 			right join accessory acs on acs.id_accessory=rha.accessory_id_accessory
 				right join bike_has_rent bhr on bhr.rent_id_rent = r.id_rent
-					right join bike b on b.id_bike = bhr.bike_id_bike
-					
+					right join bike b on b.id_bike = bhr.bike_id_bike	
 where r.date_start between '2018-03-12'  and '2018-05-11'
 order by c.name;
 
@@ -78,16 +73,19 @@ where c.name = 'Влад';
  select * from rent_by_worker;
  
  -- 4-----------------------------------------------------------------------------------
- 
+ drop view about_bike;
  create view about_bike as 
-  select 
-  	concat('Марка - ',mark,', Тип - ',type,', Денна ціна - ',day_price,', Ціна депозиту - ',deposit_amount,', Ціна ремонту від - ',replacement_cost) as "Каталог Велосипедів"
-  from bike;
+  select b.mark,
+  		b.type,
+		b.day_price,
+		pr.name,
+		pr.coutry
+	from bike b join bike_producer pr on bike_producer_id_bike_producer=id_bike_producer
+	where coutry = 'USA'
+	order by name;
+ select * from about_bike;
  
- 
-  -- 5-----------------------------------------------------------------------------------
-	
- 
+
  
  
  
